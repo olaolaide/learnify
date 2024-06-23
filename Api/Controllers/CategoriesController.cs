@@ -2,6 +2,7 @@
 using AutoMapper;
 using Entity;
 using Entity.Interfaces;
+using Entity.Specifications;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -18,7 +19,8 @@ public class CategoriesController(IGenericRepository<Category> repository, IMapp
     [HttpGet("{id:int}")]
     public async Task<ActionResult<CategoryDto>> GetCategory(int id)
     {
-        var category = await repository.GetByIdAsync(id);
+        var spec = new CategoriesWithCoursesSpecification(id);
+        var category = await repository.GetEntityWithSpec(spec);
         return Ok(mapper.Map<Category, CategoryDto>(category));
     }
 }
