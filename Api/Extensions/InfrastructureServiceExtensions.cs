@@ -1,4 +1,5 @@
-﻿using Entity.Interfaces;
+﻿using Api.Helpers;
+using Entity.Interfaces;
 using Infrastructure;
 using Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;
@@ -27,11 +28,13 @@ public static class InfrastructureServiceExtensions
             {
                 policy.AllowAnyMethod()
                     .AllowAnyHeader()
-                    .WithOrigins("http://localhost:5174");
+                    .WithOrigins("http://localhost:5173");
             });
         });
+        services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
         services.AddScoped<ICourseRepository, CourseRepository>();
-
+        services.AddScoped<ICategoryRepository, CategoryRepository>();
+        services.AddAutoMapper(typeof(MappingProfiles));
         return services;
     }
 }

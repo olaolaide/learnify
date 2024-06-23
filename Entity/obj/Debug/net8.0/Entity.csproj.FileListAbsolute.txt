@@ -9,3 +9,4 @@ C:\Users\Abimbola\RiderProjects\learnify\Entity\obj\Debug\net8.0\Entity.dll
 C:\Users\Abimbola\RiderProjects\learnify\Entity\obj\Debug\net8.0\refint\Entity.dll
 C:\Users\Abimbola\RiderProjects\learnify\Entity\obj\Debug\net8.0\Entity.pdb
 C:\Users\Abimbola\RiderProjects\learnify\Entity\obj\Debug\net8.0\ref\Entity.dll
+C:\Users\Abimbola\RiderProjects\learnify\Entity\obj\Debug\net8.0\Entity.sourcelink.json

@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "yph4XSG1ZTYbYmT6Dwa3+tHSrvzCjXhH59tZNNZDlciMOqtsS7lE5OMISHJ4hxk0FNnnFWa08u0KXLcbpzaUkw==",
+  "dgSpecHash": "k9cdwY8iYL6F+VK3MUbgyj5hvEbqPpjtyq1Okxs4XfJAL05tqmiMjfvKnSb4P+s7U3P4MGutUHRuNi99+S37TA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Abimbola\\RiderProjects\\learnify\\Api\\Api.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Abimbola\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\Abimbola\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Abimbola\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
     "C:\\Users\\Abimbola\\.nuget\\packages\\microsoft.codeanalysis.analyzers\\3.3.3\\microsoft.codeanalysis.analyzers.3.3.3.nupkg.sha512",
