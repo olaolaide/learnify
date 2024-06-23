@@ -2,6 +2,7 @@
 using AutoMapper;
 using Entity;
 using Entity.Interfaces;
+using Entity.Specifications;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -11,14 +12,16 @@ public class CoursesController(IGenericRepository<Course> repository, IMapper ma
     [HttpGet]
     public async Task<IActionResult> GetCourses()
     {
-        var courses = await repository.GetAllAsync();
+        var spec = new CoursesWithCategoriesSpecification();
+        var courses = await repository.ListWithSpec(spec);
         return Ok(mapper.Map<IReadOnlyList<Course>, IReadOnlyList<CourseDto>>(courses));
     }
 
     [HttpGet("{id:guid}")]
     public async Task<ActionResult<Course>> GetCourse(Guid id)
     {
-        var course = await repository.GetByIdAsync(id);
+        var spec = new CoursesWithCategoriesSpecification(id);
+        var course = await repository.GetEntityWithSpec(spec);
         return Ok(mapper.Map<Course, CourseDto>(course));
     }
 }
