@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
 
+[ApiController]
+[Route("api/[controller]")]
 public class ErrorsController(StoreContext context) : BaseController
 {
     [HttpGet("notFound")]
@@ -27,8 +29,8 @@ public class ErrorsController(StoreContext context) : BaseController
         return BadRequest(new ApiResponse(400));
     }
 
-    [HttpGet("badRequest/{id}")]
-    public ActionResult BadRequestWithId()
+    [HttpGet("badRequest/{id:int}")]
+    public ActionResult BadRequestWithId(int id)
     {
         return Ok();
     }

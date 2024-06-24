@@ -1,4 +1,5 @@
 using Api.Extensions;
+using Api.Middleware;
 using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,15 +16,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseMiddleware<ExceptionMiddleware>();
+app.UseStatusCodePagesWithReExecute("/redirect/{0}");
 app.UseHttpsRedirection();
-
 app.UseRouting();
-
 app.UseCors("CorsPolicy");
-
 app.UseAuthorization();
-
 app.MapControllers();
 
 using (var scope = app.Services.CreateScope())

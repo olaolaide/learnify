@@ -4,37 +4,43 @@ using Infrastructure;
 using Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;
 
-namespace Api.Extensions;
-
-public static class InfrastructureServiceExtensions
+namespace Api.Extensions
 {
-    public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration config)
+    public static class InfrastructureServiceExtensions
     {
-        // Add controllers service
-        services.AddControllers();
-
-        // Add Swagger services
-        services.AddEndpointsApiExplorer();
-        services.AddSwaggerGen();
-
-        // Configure the database context
-        services.AddDbContext<StoreContext>(opt =>
-            opt.UseSqlite(config.GetConnectionString("DefaultConnection")));
-
-        // Configure CORS policy
-        services.AddCors(options =>
+        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration config)
         {
-            options.AddPolicy("CorsPolicy", policy =>
+            // Add controllers service
+            services.AddControllers();
+
+            // Add Swagger services
+            services.AddEndpointsApiExplorer();
+            services.AddSwaggerGen();
+
+            // Configure the database context
+            services.AddDbContext<StoreContext>(opt =>
+                opt.UseSqlite(config.GetConnectionString("DefaultConnection")));
+
+            // Configure CORS policy
+            services.AddCors(options =>
             {
-                policy.AllowAnyMethod()
-                    .AllowAnyHeader()
-                    .WithOrigins("http://localhost:5173");
+                options.AddPolicy("CorsPolicy", policy =>
+                {
+                    policy.AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .WithOrigins("http://localhost:5173");
+                });
             });
-        });
-        services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-        services.AddScoped<ICourseRepository, CourseRepository>();
-        services.AddScoped<ICategoryRepository, CategoryRepository>();
-        services.AddAutoMapper(typeof(MappingProfiles));
-        return services;
+
+            // Add repositories
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<ICourseRepository, CourseRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+
+            // Add AutoMapper profiles
+            services.AddAutoMapper(typeof(MappingProfiles));
+
+            return services;
+        }
     }
 }
