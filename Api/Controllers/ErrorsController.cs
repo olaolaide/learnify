@@ -2,36 +2,44 @@
 using Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Controllers;
-
-[ApiController]
-[Route("api/[controller]")]
-public class ErrorsController(StoreContext context) : BaseController
+namespace Api.Controllers
 {
-    [HttpGet("notFound")]
-    public ActionResult NotFoundResult()
+    [ApiController]
+    [Route("api/[controller]")]
+    public class ErrorsController : BaseController
     {
-        var category = context.Categories.Find(45);
-        if (category == null) return NotFound(new ApiResponse(404));
-        return Ok();
-    }
+        private readonly StoreContext _context;
 
-    [HttpGet("serverError")]
-    public ActionResult ServerErrorMethod()
-    {
-        var category = context.Categories.Find(45);
-        return Ok(category.ToString());
-    }
+        public ErrorsController(StoreContext context)
+        {
+            _context = context;
+        }
 
-    [HttpGet("badRequest")]
-    public ActionResult BadRequestMethod()
-    {
-        return BadRequest(new ApiResponse(400));
-    }
+        [HttpGet("notFound")]
+        public ActionResult NotFoundResult()
+        {
+            var category = _context.Categories.Find(45);
+            if (category == null) return NotFound(new ApiResponse(404));
+            return Ok();
+        }
 
-    [HttpGet("badRequest/{id:int}")]
-    public ActionResult BadRequestWithId(int id)
-    {
-        return Ok();
+        [HttpGet("serverError")]
+        public ActionResult ServerErrorMethod()
+        {
+            var category = _context.Categories.Find(45);
+            return Ok(category?.ToString());
+        }
+
+        [HttpGet("badRequest")]
+        public ActionResult BadRequestMethod()
+        {
+            return BadRequest(new ApiResponse(400));
+        }
+
+        [HttpGet("badRequest/{id:int}")]
+        public ActionResult BadRequestWithId(int id)
+        {
+            return BadRequest(new ApiValidationErrorResponse());
+        }
     }
 }
