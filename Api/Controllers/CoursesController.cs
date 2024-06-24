@@ -10,9 +10,9 @@ namespace Api.Controllers;
 public class CoursesController(IGenericRepository<Course> repository, IMapper mapper) : BaseController
 {
     [HttpGet]
-    public async Task<IActionResult> GetCourses()
+    public async Task<IActionResult> GetCourses(string sort)
     {
-        var spec = new CoursesWithCategoriesSpecification();
+        var spec = new CoursesWithCategoriesSpecification(sort);
         var courses = await repository.ListWithSpec(spec);
         return Ok(mapper.Map<IReadOnlyList<Course>, IReadOnlyList<CourseDto>>(courses));
     }

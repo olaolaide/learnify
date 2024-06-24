@@ -13,6 +13,16 @@ public class SpecificationEvaluator<T> where T : class
             query = query.Where(spec.Criteria);
         }
 
+        if (spec.SortByAscending != null)
+        {
+            query = query.OrderBy(spec.SortByAscending);
+        }
+
+        if (spec.SortByDescending != null)
+        {
+            query = query.OrderByDescending(spec.SortByDescending);
+        }
+
         query = spec.Include.Aggregate(query, (current, include) => current.Include(include));
         return query;
     }
